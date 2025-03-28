@@ -9,11 +9,10 @@ import (
 func Routes (r *gin.Engine) {
 	
 	employeesRoutes := r.Group("/persons") 
-	getNewPersinIsAddedController := dependencies.GetNewPersonIsAddedController().Execute
-	getCountGenderController := dependencies.GetCountGenderController().Execute
+
 	{
 		employeesRoutes.POST("/", controllers.NewCreatePersonController().Run)
 		employeesRoutes.GET("/newPersonIsAdded", controllers.getNewPersinIsAddedController().Run)
-		employeesRoutes.GET("/CountGender/:sexo",getCountGenderController)
+		employeesRoutes.GET("/CountGender/:sexo",getCountGenderController().Run)
 	}
 }
