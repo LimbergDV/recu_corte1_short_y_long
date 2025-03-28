@@ -21,8 +21,8 @@ func NewMySQL() *MySQL {
 }
 
 func (mysql *MySQL) Save(person domain.Person) (uint, error) {
-	query := "INSERT INTO persons (name, age, sex, gender) VALUES (?, ?, ?, ?)"
-	res, err := mysql.conn.ExecutePreparedQuery(query, person.Name, person.Age, person.Sex, person.Gender)
+	query := "INSERT INTO persons (name, age, gender) VALUES (?, ?, ?)"
+	res, err := mysql.conn.ExecutePreparedQuery(query, person.Name, person.Age, person.Gender)
 	if err != nil {
 		fmt.Println("Error al preparar la consulta: %v", err)
 		return 0, err

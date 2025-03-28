@@ -20,9 +20,6 @@ func CheckPerson (person domain.Person) error {
 		return errors.New("No puedes poner una edad menor a 0")
 	}
 
-	if person.Gender == "" {
-		return errors.New("El sexo de la persona no puede estar vacia")
-	}
 
 	return nil
 }
