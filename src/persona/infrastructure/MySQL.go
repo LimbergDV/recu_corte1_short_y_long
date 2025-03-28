@@ -2,6 +2,8 @@ package infrastructure
 
 import (
 	"api_recu_corte1/src/core"
+	"api_recu_corte1/src/persona/domain"
+	"fmt"
 	"log"
 )
 
@@ -16,4 +18,16 @@ func NewMySQL() *MySQL {
 		log.Fatalf("Error al configurar el pool de conexiones: %v", conn.Err)
 	}
 	return &MySQL{conn: conn}
+}
+
+func (mysql *MySQL) Save(person domain.Person) (uint, error) {
+	query := "INSERT INTO persons (name, age, sex, gender) VALUES (?, ?, ?, ?)"
+	res, err := mysql.conn.ExecutePreparedQuery(query, person.Name, person.Age, person.Sex, person.Gender)
+	if err != nil {
+		fmt.Println("Error al preparar la consulta: %v", err)
+		return 0, err
+	}
+	id, _ := res.LastInsertId()
+	fmt.Println("Persona creada")
+	return uint(id), nil
 }
